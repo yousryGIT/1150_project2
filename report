@@ -1,0 +1,24 @@
+Name: Mohamed Yousry Mohamed
+ID: 1150
+Report
+
+Game Logic:
+As the HTML5 version that was sent, the game consists of 2 levels of difficulty, the shooter has 3 lives at the beginning of the game.
+there are pause, close, new game, and music buttons of control.
+If the bullet hits the alien they disappear gaining score, if the alien1 or alien2 hit the shooter, the shooter loses it's lives gradually until its game over.
+Technologies:
+Pixi.js renderer, HTML5, javascript, css.
+Screen shots:
+ 
+ 
+ 
+ 
+Code :
+function createAlien(x, y) { if(flag_CreateAliens){ var alien = new PIXI.Sprite(alientexture); alien.anchor.x = 0.5; alien.anchor.y = 0.5; alien.position.x = x; alien.position.y = y; alien.scale.x = 0.5; alien.scale.y = 0.5; aliens.push(alien); stage.addChild(alien); if(Score >= 1000) { var alien = new PIXI.Sprite(alientexture); alien.anchor.x = 0.5; alien.anchor.y = 0.5; alien.position.x = x; alien.position.y = y; alien.scale.x = 0.5; alien.scale.y = 0.5; aliens.push(alien); stage.addChild(alien); var alien2 = new PIXI.Sprite(alientexture2); alien2.anchor.x = 0.5; alien2.anchor.y = 0.5; alien2.position.x = Math.random() * (window.innerWidth-600); alien2.position.y = y; alien2.scale.x = 0.2; alien2.scale.y = 0.2; aliens2.push(alien2); stage.addChild(alien2); } 
+
+
+
+function CollisionWithBullet() { for(var i = 0;i< aliens.length;i++){ for(var j = 0;j< Bullets.length;j++){ var Bullet_A = Bullets[j]; var Monster_A = aliens[i]; if((Bullet_A.position.x < (Monster_A.position.x + Monster_A.width)) && ((Bullet_A.position.x + Bullet_A.width) > Monster_A.position.x) && (Bullet_A.position.y < (Monster_A.position.y + Monster_A.height)) && ((Bullet_A.position.y + Bullet_A.height) > Monster_A.position.y)){ Score += 20; document.getElementById('Score').innerHTML=Score; aliens.splice(i, 1); Bullets.splice(j, 1); stage.removeChild(Bullet_A); stage.removeChild(Monster_A); onAssetsLoaded(((Bullet_A.position.x)+(Monster_A.position.x))/2,((Bullet_A.position.y)+(Monster_A.position.y))/2); } } } }
+
+
+function action() { count -= 10; mcount += 10; skip +=1; if(skip % 40 ==0) { createAlien(Math.random() * (window.innerWidth-600), -20); movingAliens(); } movingBullets(); CollisionWithBullet(); CollisionWithShooter(); if(Score >= 1000) { CollisionWithShooter2(); } if(flag_Move){ background.position.y += 10; background2.position.y += 10; if(background.position.y >= (1200+600)) { background.position.y = -(1200); } if(background2.position.y >= (1200+600)) { background2.position.y = -(1200); } } }
